@@ -1,1 +1,1 @@
-# Rust Bookstore 🦀📚
+# 🦀 Rust Bookstore 📚
