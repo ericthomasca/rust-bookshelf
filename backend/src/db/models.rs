@@ -1,3 +1,5 @@
+use diesel::{Queryable, Insertable};
+use serde_derive::Serialize;
 use super::schema::posts;
 
 #[derive(Serialize, Queryable)]

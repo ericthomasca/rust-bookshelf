@@ -7,9 +7,7 @@ use models::*;
 // use schema::posts;
 use schema::posts::dsl::*;
 use std::env;
-use uuid::Uuid;
-
-use self::schema::posts;
+// use uuid::Uuid;
 
 fn establish_connection() -> SqliteConnection {
     dotenv().ok();
@@ -23,30 +21,30 @@ fn establish_connection() -> SqliteConnection {
 pub fn get_posts() -> Vec<Post> {
     let connection = &mut establish_connection();
     posts
-        .filter(published.eq(true))
+        .filter(published.eq(false))
         .limit(5)
         .load::<Post>(connection)
         .expect("Error loading posts")
 }
 
-pub fn create_post(t: &str, b: &str) -> String {
-    let connection = &mut establish_connection();
-    let uuid = Uuid::new_v4().hyphenated().to_string();
-    let new_post = NewPost { id: &uuid, title: t, body: b};
+// pub fn create_post(t: &str, b: &str) -> String {
+//     let connection = &mut establish_connection();
+//     let uuid = Uuid::new_v4().hyphenated().to_string();
+//     let new_post = NewPost { id: &uuid, title: t, body: b};
 
-    diesel::insert_into(posts::table)
-        .values(&new_post)
-        .execute(connection)
-        .expect("Error saving new post");
+//     diesel::insert_into(posts::table)
+//         .values(&new_post)
+//         .execute(connection)
+//         .expect("Error saving new post");
 
-    uuid
-}
+//     uuid
+// }
 
-pub fn publish_post(key: String) -> usize {
-    let connection = &mut establish_connection();
+// pub fn publish_post(key: String) -> usize {
+//     let connection = &mut establish_connection();
 
-    diesel::update(posts.find(key))
-        .set(published.eq(true))
-        .execute(connection)
-        .expect("Unable to find post")
-}
+//     diesel::update(posts.find(key))
+//         .set(published.eq(true))
+//         .execute(connection)
+//         .expect("Unable to find post")
+// }
