@@ -1,4 +1,4 @@
-# 🦀 Rust TODO 📜
+# 🦀 Rust Todo 📜
 
 This is a simple todo list web app made completely with Rust. I made this to learn more about Rust and some popular frameworks for it.
 
