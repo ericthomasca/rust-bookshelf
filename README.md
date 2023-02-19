@@ -1,4 +1,4 @@
-# 🦀 Rust Bookshelf 📚
+# 🦀 Rust TODO 📚
 
 This is a simple book collection web app made completely with Rust. I made this to learn more about Rust and some popular frameworks for it.
 
