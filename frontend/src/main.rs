@@ -1,21 +1,44 @@
 use yew::prelude::*;
+use serde::Deserialize;
+use gloo_net::http::Request;
 
-#[function_component]
-fn App() -> Html {
-    let counter = use_state(|| 0);
-    let onclick = {
-        let counter = counter.clone();
-        move |_| {
-            let value = *counter + 1;
-            counter.set(value);
-        }
-    };
+#[derive(Clone, PartialEq, Deserialize)]
+struct Post {
+    id: String,
+    title: String,
+    body: String,
+    published: bool,
+}
+
+#[function_component(App)]
+fn app() -> Html {
+    let posts = use_state(Vec::new);
+    {
+        let posts = posts;
+        use_effect_with_deps(move |_| {
+            let posts = posts;
+            wasm_bindgen_futures::spawn_local(async move {
+                let fetched_posts: Vec<Post> = Request::get("http://localhost:8088/api/posts")
+                    .send()
+                    .await
+                    .expect("Data not received")
+                    .json()
+                    .await
+                    .expect("Problem with data received");
+                posts.set(fetched_posts);
+            });
+            || ()
+        }, ());
+    }
 
     html! {
-        <div>
-            <button {onclick}>{ "+1" }</button>
-            <p>{ *counter }</p>
-        </div>
+        <>
+            <h1>{"Posts"}</h1>
+            <div>
+                <h3>{"Published Posts"}</h3>
+                
+            </div>
+        </>
     }
 }
 
