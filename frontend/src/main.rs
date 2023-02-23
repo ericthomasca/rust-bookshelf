@@ -21,8 +21,6 @@ struct PostDetailsProps {
     post: Post
 }
 
-#[function_component(PostList)]
-
 #[function_component(App)]
 fn app() -> Html {
     let posts = use_state(Vec::new);
