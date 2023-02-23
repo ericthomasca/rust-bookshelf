@@ -7,8 +7,21 @@ struct Post {
     id: String,
     title: String,
     body: String,
-    published: bool,
+    published: bool
 }
+
+#[derive(Properties, PartialEq)]
+struct PostListProps {
+    posts: Vec<Post>,
+    on_click: Callback<Post>
+}
+
+#[derive(Properties, PartialEq)]
+struct PostDetailsProps {
+    post: Post
+}
+
+#[function_component(PostList)]
 
 #[function_component(App)]
 fn app() -> Html {
